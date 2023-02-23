@@ -1,0 +1,106 @@
+############################################
+# WORDLE on the ESP32 by Hari Wiguna, 2023 #
+############################################
+# REFERENCES:
+# https://docs.micropython.org/en/latest/esp8266/tutorial/ssd1306.html
+# https://github.com/peterhinch/micropython-font-to-py/tree/master/writer
+
+import machine
+import ssd1306
+import time
+
+from writer import Writer
+import courier20  # Font to use
+
+#-- GPIOs --
+sclPIN,sdaPIN = 33, 34
+consPIN, colPIN, vowelPIN, downPIN =7,8,9,10
+
+#-- OLED --
+oledWIDTH = 128
+oledHEIGHT =  32
+
+#-- INIT OLED --
+i2c = machine.SoftI2C( machine.Pin(sclPIN), machine.Pin(sdaPIN) )
+oled = ssd1306.SSD1306_I2C( oledWIDTH, oledHEIGHT, i2c )
+wri = Writer(oled, courier20)
+
+#-- INIT BUTTONS --
+colBtn = machine.Pin(colPIN, machine.Pin.IN, machine.Pin.PULL_UP)
+vowelBtn = machine.Pin(vowelPIN, machine.Pin.IN, machine.Pin.PULL_UP)
+consBtn = machine.Pin(consPIN, machine.Pin.IN, machine.Pin.PULL_UP)
+
+#-- GAME --
+word = ["Q","O","R","j","W"]
+curRow, curCol = 0, 4
+boxWidth,boxHeight  = 22, 24
+vowels = "AEIOUY"
+consonants = "BCDFGHJKLMNPQRSTVWXZ"
+
+def draw():
+    x0 = 6
+    oled.fill(0)
+
+    # Row Indicator
+    for i in range(6):
+        x = 0
+        y = i*4
+        if i==0:
+            oled.fill_rect(x,y, 3, 3, 1)
+        else:
+            oled.fill_rect(x+1,y, 1, 1, 1)
+
+    # Column letters
+    for i in range(5):
+        x = x0 + i*25
+        y = 0
+        
+        Writer.set_textpos(oled, 3, x+4)
+        wri.printstring(word[i])
+
+        oled.rect(x,y, boxWidth, boxHeight, 1)
+        if i==curCol:
+            oled.rect(x+1,y+1, boxWidth-2, boxHeight-2, 1)
+            oled.rect(x+2,y+1, boxWidth-4, boxHeight-2, 1)
+
+    oled.show()
+
+def nextChar(curLetter, chars):
+    # Compute next character after selected column.  If selected column is not in the chars array, start with the first char.
+    if curLetter in chars:
+        curIndex = chars.index(word[curCol])
+        nextIndex = curIndex+1 if curIndex < (len(chars)-1) else 0
+    else:
+        nextIndex = 0
+    return chars[nextIndex]
+
+def readButtons():
+    global curCol
+    if colBtn.value()==0:
+        curCol = curCol+1 if curCol<4 else 0
+        draw()
+        time.sleep(.1)
+    
+    if vowelBtn.value() == 0:
+        word[curCol] = nextChar(word[curCol], vowels)
+        draw()
+        time.sleep(.1)
+    
+    if consBtn.value() == 0:
+        word[curCol] = nextChar(word[curCol], consonants)
+        draw()
+        time.sleep(.1)
+        
+#== MAIN ==
+while True:
+    draw()
+    readButtons()
+
+--------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
