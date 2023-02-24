@@ -1,6 +1,6 @@
 TODO:
-[]submit guess button
-[]Display correct letters and correct placements
+[x]submit guess button
+[x]Display correct letters and correct placements
 	Guess Row: UPPERCASE letters, Outline boxes
 	
 	Previous Guess Rows:
@@ -8,12 +8,13 @@ TODO:
 		Correct Letter (wrong placement): 	Normal outline box, white UPPERCASE letters
 		Perfect Letter (correct placement): White FILLED box, black UPPERCASE letters
 
-[]Implement next and previous row
-[]Prevent changes to submitted rows
+[x]Implement next and previous row
+[x]Prevent changes to submitted rows
+[x]Auto fill ADIEU when AD is entered
 []Winning animation: letters jump up and down + smily face. "You did it in 3!"
 []Losing animation: answer revealed and + frowny face
 
-[]Get random 5 letter word from the Internet
+[/]Get random 5 letter word from the Internet
 []Display count of how many rounds won?
 
 []up down scroll animation
