@@ -1,3 +1,24 @@
+TODO:
+[]submit guess button
+[]Display correct letters and correct placements
+	Guess Row: UPPERCASE letters, Outline boxes
+	
+	Previous Guess Rows:
+		Wrong Letter: Put diagonal lines across the letter.
+		Correct Letter (wrong placement): 	Normal outline box, white UPPERCASE letters
+		Perfect Letter (correct placement): White FILLED box, black UPPERCASE letters
+
+[]Implement next and previous row
+[]Prevent changes to submitted rows
+[]Winning animation: letters jump up and down + smily face. "You did it in 3!"
+[]Losing animation: answer revealed and + frowny face
+
+[]Get random 5 letter word from the Internet
+[]Display count of how many rounds won?
+
+[]up down scroll animation
+[]Show partial rows to indicate topmost row, mid rows, and last row.
+
 ############################################
 # WORDLE on the ESP32 by Hari Wiguna, 2023 #
 ############################################
@@ -13,8 +34,8 @@ from writer import Writer
 import courier20  # Font to use
 
 #-- GPIOs --
-sclPIN,sdaPIN = 33, 34
 consPIN, colPIN, vowelPIN, downPIN =7,8,9,10
+sclPIN,sdaPIN = 33, 34
 
 #-- OLED --
 oledWIDTH = 128
