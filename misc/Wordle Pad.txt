@@ -11,6 +11,7 @@ TODO:
 [x]Implement next and previous row
 [x]Prevent changes to submitted rows
 [x]Auto fill ADIEU when AD is entered
+[]Don't let them guess a word that is not in the list. That'd be unfair.
 []Winning animation: letters jump up and down + smily face. "You did it in 3!"
 []Losing animation: answer revealed and + frowny face
 
