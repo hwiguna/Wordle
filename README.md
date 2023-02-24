@@ -1,4 +1,5 @@
 # Wordle
+![Photo showing the functions of the buttons on the board](misc/Instructions.png)
 Wordle on the ESP32
 
 This is play in progress.
